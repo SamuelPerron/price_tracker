@@ -8,7 +8,6 @@ Create CSV file named `products.csv` and list products with following structure:
 
 
 ## Websites supported
-- Walmart
 - Amazon
 - Bestbuy
 - Playstation Store
