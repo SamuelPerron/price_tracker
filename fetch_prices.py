@@ -46,10 +46,24 @@ class PriceTracker():
                 if i != '':
                     return float(i.strip().replace(',', '.'))
 
+    def locate_playstation(self, url):
+        r = requests.get(url)
+        soup = BeautifulSoup(r.text, 'html.parser')
+        price_str = soup.find('h3', {'class': 'price-display__price'})
+        if not price_str:
+            return None
+        else:
+            for i in price_str.get_text().split('$'):
+                if i != '':
+                    return float(i.strip())
+
     def find_price(self, item):
         found = None
         if item['website'] == 'amazon':
             found = self.locate_amazon(item['url'])
+        elif item['website'] == 'playstation':
+            found = self.locate_playstation(item['url'])
+
         if found:
             item['actual_price'] = found
         else:
